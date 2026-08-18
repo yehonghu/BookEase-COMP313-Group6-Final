@@ -45,7 +45,7 @@ export default function Home() {
             <div className="motion-hero__meta"><MapPin size={15} /> Designed for the practical work close to home.</div>
           </motion.div>
           <motion.div className="motion-hero__stage" initial={reduceMotion ? false : { opacity: 0, scale: 0.94 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.05, delay: 0.12, ease: [0.2, 0.7, 0.2, 1] }}>
-            <div className="motion-stage__caption"><span>Live service field</span><b>Pick a path</b></div>
+            <div className="motion-stage__caption"><span>Local service map</span><b>Inspect the handoff</b></div>
             <ServiceOrbit onSelect={() => navigate('/services')} />
           </motion.div>
         </div>
