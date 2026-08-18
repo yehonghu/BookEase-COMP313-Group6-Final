@@ -8,7 +8,7 @@ services:
       - key: NODE_ENV
         value: production
       - key: JWT_SECRET
-        value: bookease_jwt_secret_key_2026_comp313
+        generateValue: true
       - key: JWT_EXPIRES_IN
         value: 7d
       - key: MONGODB_URI

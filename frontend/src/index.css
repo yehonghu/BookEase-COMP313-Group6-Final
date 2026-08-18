@@ -299,3 +299,224 @@ select.glass-input {
   background-position: right 16px center;
   padding-right: 40px;
 }
+
+
+/* ============================================
+   BookEase — Night Market Orbit public system
+   The operational dashboard utilities above remain intentionally intact.
+   ============================================ */
+
+.bookease-public {
+  --orbit-ink: #06070d;
+  --orbit-panel: rgba(17, 21, 38, 0.68);
+  --orbit-panel-strong: rgba(18, 23, 43, 0.88);
+  --orbit-line: rgba(184, 201, 255, 0.15);
+  --orbit-text: #f5f7ff;
+  --orbit-muted: #9aa8c7;
+  --orbit-blue: #6b8cff;
+  --orbit-violet: #b57bff;
+  --orbit-mint: #51e7b9;
+  min-height: 100vh;
+  color: var(--orbit-text);
+  background:
+    radial-gradient(circle at 15% 7%, rgba(67, 101, 255, 0.22), transparent 24rem),
+    radial-gradient(circle at 85% 28%, rgba(161, 86, 255, 0.15), transparent 26rem),
+    linear-gradient(180deg, #080a12 0%, #06070d 44%, #090d1b 100%);
+}
+
+.bookease-public ::selection {
+  color: #08101e;
+  background: #a5c2ff;
+}
+
+.bookease-public main {
+  position: relative;
+  overflow: clip;
+}
+
+.bookease-scroll-progress {
+  position: fixed;
+  z-index: 100;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 3px;
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, var(--orbit-mint), var(--orbit-blue) 55%, var(--orbit-violet));
+  box-shadow: 0 0 18px rgba(115, 151, 255, 0.9);
+}
+
+.orbit-grid {
+  background-image:
+    linear-gradient(rgba(139, 163, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 163, 255, 0.07) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.75), transparent 86%);
+}
+
+.orbit-noise {
+  opacity: 0.18;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.42'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+}
+
+.orbit-section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #9eb4ff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.orbit-section-label::after {
+  content: '';
+  width: 2.4rem;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(149, 177, 255, 0.8), transparent);
+}
+
+.orbit-glass {
+  background: var(--orbit-panel);
+  border: 1px solid var(--orbit-line);
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.26), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
+
+.orbit-card {
+  transform-style: preserve-3d;
+  border: 1px solid var(--orbit-line);
+  background: linear-gradient(145deg, rgba(29, 35, 63, 0.78), rgba(10, 13, 27, 0.8));
+  box-shadow: 0 28px 56px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.orbit-card::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(130deg, rgba(255,255,255,0.1), transparent 28%, transparent 68%, rgba(129, 149, 255, 0.08));
+}
+
+.orbit-button-primary,
+.orbit-button-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 3.15rem;
+  padding: 0.78rem 1.35rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+}
+
+.orbit-button-primary {
+  color: #071124;
+  border: 1px solid rgba(196, 213, 255, 0.86);
+  background: linear-gradient(135deg, #a4baff, #69e5d1);
+  box-shadow: 0 14px 35px rgba(79, 133, 255, 0.24);
+}
+
+.orbit-button-secondary {
+  color: #eaf0ff;
+  border: 1px solid rgba(179, 197, 255, 0.24);
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.orbit-button-primary:hover,
+.orbit-button-secondary:hover {
+  color: inherit;
+  transform: translateY(-2px);
+  border-color: rgba(206, 217, 255, 0.7);
+}
+
+.orbit-button-primary:active,
+.orbit-button-secondary:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.orbit-nav {
+  background: rgba(6, 7, 13, 0.62);
+  border-bottom: 1px solid rgba(181, 199, 255, 0.1);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+}
+
+.orbit-nav-link {
+  color: #a8b5d1;
+  font-size: 0.84rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.orbit-nav-link:hover,
+.orbit-nav-link.active {
+  color: #f3f6ff;
+}
+
+.orbit-fade-up {
+  animation: orbit-fade-up 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes orbit-fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* Existing public routes inherit the new product system without affecting role dashboards. */
+.bookease-public .glass,
+.bookease-public .glass-card {
+  background: rgba(18, 23, 43, 0.72);
+  border-color: rgba(184, 201, 255, 0.14);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.22);
+}
+
+.bookease-public .glass-card:hover {
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.3);
+}
+
+.bookease-public .glass-input {
+  color: #eaf0ff;
+  background: rgba(255, 255, 255, 0.055);
+  border-color: rgba(184, 201, 255, 0.18);
+}
+
+.bookease-public .glass-input:focus {
+  color: #f8faff;
+  border-color: #83a2ff;
+  background: rgba(255, 255, 255, 0.075);
+  box-shadow: 0 0 0 3px rgba(102, 139, 255, 0.16);
+}
+
+.bookease-public .text-apple-gray-900 { color: #f5f7ff !important; }
+.bookease-public .text-apple-gray-700 { color: #d6def2 !important; }
+.bookease-public .text-apple-gray-600 { color: #b9c4dd !important; }
+.bookease-public .text-apple-gray-500 { color: #9aa8c7 !important; }
+.bookease-public .text-apple-gray-400 { color: #7e8ca9 !important; }
+.bookease-public .section-title { color: #f5f7ff; }
+.bookease-public .section-subtitle { color: #9aa8c7; }
+.bookease-public .apple-btn-primary { color: #071124; background: linear-gradient(135deg, #a4baff, #69e5d1); }
+.bookease-public .apple-btn-primary:hover { color: #071124; background: linear-gradient(135deg, #b3c6ff, #82efdb); }
+.bookease-public .apple-btn-secondary { color: #c8d6ff; background: rgba(132, 159, 255, 0.1); }
+.bookease-public .apple-btn-secondary:hover { color: #edf2ff; background: rgba(132, 159, 255, 0.17); }
+.bookease-public .bg-apple-gray-50 { background-color: rgba(255, 255, 255, 0.045) !important; }
+.bookease-public .bg-apple-gray-100 { background-color: rgba(255, 255, 255, 0.075) !important; }
+.bookease-public .border-apple-gray-100,
+.bookease-public .border-apple-gray-200 { border-color: rgba(184, 201, 255, 0.13) !important; }

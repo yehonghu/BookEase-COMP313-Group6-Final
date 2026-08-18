@@ -1,212 +1,124 @@
-# BookEase - Local Service Booking Platform
+# BookEase
 
-> COMP313 - Group 6 Project  
-> A full-stack service booking marketplace built with React + Express + MongoDB
+> A full-stack local-service marketplace that turns a service request into comparable bids and a conflict-aware booking.
 
----
+BookEase is a portfolio-grade React, Express, and MongoDB application for customers, independent service providers, and administrators. The interface now uses the **Night Market Orbit** system: a dark, spatial public experience with layered request, bid, and booking states, depth-based motion, and scroll-led storytelling. The operational product routes preserve the real marketplace workflow behind the visual presentation.
 
-## Quick Start
+## Product Flow
+
+```text
+Customer request → provider proposals → bid selection → availability verification → booking creation → review
+```
+
+The product supports three roles. Customers create requests and choose between bids. Providers publish bids and manage availability. Administrators oversee users, providers, bookings, reviews, and contact messages.
+
+## Technology
+
+| Area | Tools |
+|---|---|
+| Frontend | React 18, Vite, React Router, Tailwind CSS |
+| Interaction | Framer Motion, CSS perspective and reduced-motion support |
+| Backend | Node.js, Express, Mongoose, JWT, express-validator |
+| Database | MongoDB |
+| Deployment | Render-compatible production configuration and static GitHub Pages preview |
+
+## Local Development
 
 ### Prerequisites
 
-- **Node.js** >= 18
-- **MongoDB** >= 6.0 (running on `localhost:27017`)
+- Node.js 18 or later
+- MongoDB 6 or later, available locally or through a managed connection
 
-### 1. Install Dependencies
+### Install dependencies
 
 ```bash
-# Backend
 cd backend
 npm install
 
-# Frontend
 cd ../frontend
 npm install
 ```
 
-### 2. Configure Environment
+### Configure the backend
 
-Edit `backend/.env` if needed (defaults work out of the box):
+Create `backend/.env` from the following template. Keep all real credentials outside Git.
 
 ```env
 PORT=5000
 MONGODB_URI=mongodb://localhost:27017/bookease
-JWT_SECRET=bookease_jwt_secret_key_2026_comp313
+JWT_SECRET=replace-with-a-long-random-secret
 JWT_EXPIRES_IN=7d
 NODE_ENV=development
-FRONTEND_URL=http://localhost:3000
+FRONTEND_URL=http://localhost:5173
 ```
 
-### 3. Seed Database (Optional)
+### Seed demo data (optional)
 
 ```bash
 cd backend
-node src/utils/seed.js
+npm run seed
 ```
 
-This creates demo accounts:
+### Run locally
 
-| Role     | Email               | Password    |
-|----------|---------------------|-------------|
-| Admin    | admin@bookease.com  | password123 |
-| Customer | alice@example.com   | password123 |
-| Customer | bob@example.com     | password123 |
-| Customer | carol@example.com   | password123 |
-| Provider | david@example.com   | password123 |
-| Provider | emma@example.com    | password123 |
-| Provider | frank@example.com   | password123 |
-| Provider | grace@example.com   | password123 |
-| Provider | henry@example.com   | password123 |
-
-### 4. Run the Application
-
-**Development mode (two terminals):**
+Use two terminals during development.
 
 ```bash
-# Terminal 1 - Backend
+# Terminal 1
 cd backend
 npm run dev
 
-# Terminal 2 - Frontend
+# Terminal 2
 cd frontend
 npm run dev
 ```
 
-**Production mode (single server):**
+Vite will display the frontend URL. The Express server uses port `5000` by default.
+
+### Build for production
 
 ```bash
-# Build frontend
 cd frontend
 npm run build
 
-# Start backend (serves frontend static files)
 cd ../backend
 npm start
 ```
 
-Then open `http://localhost:5000` in your browser.
+In production, Express serves the built frontend alongside the API.
 
----
+## Structure
 
-## Tech Stack
-
-### Backend
-- **Express.js** - REST API framework
-- **MongoDB + Mongoose** - Database & ODM
-- **JWT** - Authentication
-- **bcryptjs** - Password hashing
-- **express-validator** - Input validation
-
-### Frontend
-- **React 18** - UI library
-- **Vite** - Build tool
-- **React Router v6** - Client-side routing
-- **TailwindCSS** - Utility-first CSS
-- **Framer Motion** - Animations
-- **Lucide React** - Icons
-- **Axios** - HTTP client
-- **React Hot Toast** - Notifications
-
----
-
-## Project Structure
-
-```
-booking-platform/
-├── backend/
-│   ├── src/
-│   │   ├── config/         # DB & env configuration
-│   │   ├── models/         # Mongoose models
-│   │   ├── controllers/    # Route handlers
-│   │   ├── routes/         # API routes
-│   │   ├── middleware/      # Auth, role, error middleware
-│   │   ├── utils/          # Validators & seed script
-│   │   └── app.js          # Express app setup
-│   ├── server.js           # Entry point
-│   ├── .env                # Environment variables
-│   └── package.json
-├── frontend/
-│   ├── src/
-│   │   ├── api/            # Axios API modules
-│   │   ├── app/            # App component & routing
-│   │   ├── auth/           # Auth provider & guards
-│   │   ├── components/     # Reusable components
-│   │   ├── hooks/          # Custom hooks
-│   │   ├── layouts/        # Layout components
-│   │   └── pages/          # Page components
-│   │       ├── public/     # Home, Services, Login, Register
-│   │       ├── customer/   # Customer dashboard & bookings
-│   │       ├── provider/   # Provider dashboard & services
-│   │       ├── admin/      # Admin management pages
-│   │       └── viewer/     # Favorites
-│   ├── index.html
-│   ├── vite.config.js
-│   ├── tailwind.config.js
-│   └── package.json
-└── README.md
+```text
+backend/
+  src/
+    controllers/      # Business logic for requests, bids, availability, bookings, and reviews
+    models/           # MongoDB models
+    routes/           # API routes
+    middleware/       # Authentication, role checks, validation, and error handling
+frontend/
+  src/
+    app/              # Role-aware route map
+    auth/             # Authentication provider and route guards
+    components/       # Shared UI and motion primitives
+    layouts/          # Public, customer, provider, and admin shells
+    pages/            # Marketplace, customer, provider, admin, and public routes
+render.yaml           # Render deployment blueprint
 ```
 
----
+## Key Capabilities
 
-## Features
+| Customer | Provider | Administrator |
+|---|---|---|
+| Publish service requests | Browse relevant requests | Monitor marketplace activity |
+| Compare price, availability, and provider context | Submit and manage competitive bids | Manage users and providers |
+| Confirm bids and track bookings | Manage bookings and weekly availability | Review bookings, reviews, and contact messages |
+| Rate completed services | Track ratings and service activity | Maintain platform quality |
 
-### Customer
-- Post service requests with budget and schedule
-- Browse and compare provider bids
-- Accept bids and create bookings
-- Track booking status
-- Rate and review providers
+## Accessibility and Motion
 
-### Provider
-- Browse open service requests
-- Submit competitive bids
-- Manage bookings and availability
-- View earnings and ratings
+The public marketing surface uses scroll progress, perspective-based card movement, parallax lighting, and responsive hover depth. Visitors who set `prefers-reduced-motion` receive a stable, reduced-motion presentation.
 
-### Admin
-- System-wide dashboard with statistics
-- User management (activate/deactivate/delete)
-- Provider oversight
-- Booking monitoring
-- Review moderation
+## Contributor
 
----
-
-## API Endpoints
-
-| Method | Endpoint                    | Description              | Auth     |
-|--------|-----------------------------|--------------------------|----------|
-| POST   | /api/auth/register          | Register new user        | Public   |
-| POST   | /api/auth/login             | Login                    | Public   |
-| GET    | /api/auth/me                | Get current user         | Required |
-| GET    | /api/services               | List all services        | Public   |
-| GET    | /api/services/:id           | Get service detail       | Public   |
-| POST   | /api/services               | Create service request   | Customer |
-| POST   | /api/services/:id/bid       | Submit bid               | Provider |
-| GET    | /api/bookings               | Get my bookings          | Required |
-| POST   | /api/bookings               | Create booking           | Customer |
-| PATCH  | /api/bookings/:id/status    | Update booking status    | Required |
-| POST   | /api/bookings/:id/rating    | Rate a booking           | Customer |
-| GET    | /api/availability           | Get my availability      | Provider |
-| POST   | /api/availability/bulk      | Set weekly schedule      | Provider |
-| GET    | /api/admin/dashboard        | Admin dashboard stats    | Admin    |
-| GET    | /api/admin/users            | List all users           | Admin    |
-| GET    | /api/admin/providers        | List providers           | Admin    |
-| GET    | /api/admin/bookings         | List all bookings        | Admin    |
-
----
-
-## UI Design
-
-The frontend follows an **Apple-inspired design language**:
-- Frosted glass (glassmorphism) cards and navigation
-- Smooth animations with Framer Motion
-- Rounded corners and soft shadows
-- Clean typography with SF-style system fonts
-- Gradient accents and subtle hover effects
-
----
-
-## License
-
-COMP313 - Group 6 Academic Project © 2026
+**Yehong Hu (James Hu)**
