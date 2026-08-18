@@ -10,6 +10,8 @@ import { Eye, EyeOff, Calendar } from 'lucide-react';
 import toast from 'react-hot-toast';
 import useAuth from '../../hooks/useAuth';
 
+const isPublicDemo = import.meta.env.VITE_DEMO_MODE === 'true';
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -23,6 +25,10 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isPublicDemo) {
+      toast.error('This public showcase is read-only. Connect the BookEase API to sign in and manage live bookings.');
+      return;
+    }
     setLoading(true);
     try {
       const user = await login(email, password);

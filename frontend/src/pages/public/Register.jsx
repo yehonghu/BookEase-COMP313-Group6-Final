@@ -10,6 +10,8 @@ import { Eye, EyeOff, Calendar, User, Briefcase } from 'lucide-react';
 import toast from 'react-hot-toast';
 import useAuth from '../../hooks/useAuth';
 
+const isPublicDemo = import.meta.env.VITE_DEMO_MODE === 'true';
+
 const Register = () => {
   const [searchParams] = useSearchParams();
   const defaultRole = searchParams.get('role') || 'customer';
@@ -34,6 +36,10 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isPublicDemo) {
+      toast.error('This public showcase is read-only. Connect the BookEase API to create an account and manage live bookings.');
+      return;
+    }
     if (formData.password !== formData.confirmPassword) {
       toast.error('Passwords do not match');
       return;

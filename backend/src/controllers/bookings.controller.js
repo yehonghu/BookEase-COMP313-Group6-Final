@@ -296,6 +296,24 @@ const updateBookingStatus = async (req, res, next) => {
       });
     }
 
+    // Only participants in this booking (or an administrator) may change its state.
+    const isCustomer = booking.customer.toString() === req.user._id.toString();
+    const isProvider = booking.provider.toString() === req.user._id.toString();
+    if (!isCustomer && !isProvider && req.user.role !== 'admin') {
+      return res.status(403).json({
+        success: false,
+        message: 'Not authorized to update this booking',
+      });
+    }
+
+    // A provider controls service delivery; either participant may cancel an active booking.
+    if (req.user.role !== 'admin' && status !== 'cancelled' && !isProvider) {
+      return res.status(403).json({
+        success: false,
+        message: 'Only the assigned provider can update service progress',
+      });
+    }
+
     // Validate status transitions
     const validTransitions = {
       pending: ['confirmed', 'cancelled'],

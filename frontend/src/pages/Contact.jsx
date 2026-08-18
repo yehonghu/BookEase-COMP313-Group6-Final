@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { sendContactMessage } from "../api/contact.api";
 
+const isPublicDemo = import.meta.env.VITE_DEMO_MODE === "true";
+
 export default function Contact() {
   const [form, setForm] = useState({
     name: "",
@@ -95,6 +97,10 @@ export default function Contact() {
     }
     if (!validateEmail(form.email)) {
       setErr("Invalid email format.");
+      return;
+    }
+    if (isPublicDemo) {
+      setErr("This public showcase is read-only. Connect the BookEase API to send live messages.");
       return;
     }
 

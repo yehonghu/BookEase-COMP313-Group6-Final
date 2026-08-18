@@ -152,28 +152,12 @@ const BookingDetail = () => {
         <div className="glass-card p-6 mb-5">
           <h2 className="text-[17px] font-semibold text-apple-gray-900 mb-3">Actions</h2>
           <div className="flex gap-2 flex-wrap">
-            {booking.status === 'confirmed' && (
-              <>
-                <button
-                  onClick={() => handleStatusUpdate('in_progress')}
-                  className="apple-btn apple-btn-primary apple-btn-sm"
-                >
-                  Start Service
-                </button>
-                <button
-                  onClick={() => handleStatusUpdate('cancelled', 'Cancelled by user')}
-                  className="apple-btn apple-btn-danger apple-btn-sm"
-                >
-                  Cancel Booking
-                </button>
-              </>
-            )}
-            {booking.status === 'in_progress' && (
+            {booking.status === 'confirmed' && isCustomer && (
               <button
-                onClick={() => handleStatusUpdate('completed')}
-                className="apple-btn apple-btn-success apple-btn-sm"
+                onClick={() => handleStatusUpdate('cancelled', 'Cancelled by customer')}
+                className="apple-btn apple-btn-danger apple-btn-sm"
               >
-                Mark as Completed
+                Cancel Booking
               </button>
             )}
             {booking.status === 'completed' && isCustomer && !booking.rating && (
