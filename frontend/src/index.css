@@ -520,3 +520,234 @@ select.glass-input {
 .bookease-public .bg-apple-gray-100 { background-color: rgba(255, 255, 255, 0.075) !important; }
 .bookease-public .border-apple-gray-100,
 .bookease-public .border-apple-gray-200 { border-color: rgba(184, 201, 255, 0.13) !important; }
+
+
+/* ============================================
+   BookEase — Service Almanac refinement
+   Warm editorial surfaces replace the former night-glass public experience.
+   ============================================ */
+
+.bookease-public {
+  --almanac-paper: #fbf5e9;
+  --almanac-oat: #f1e4cc;
+  --almanac-ink: #182a45;
+  --almanac-muted: #637087;
+  --almanac-blue: #2463d4;
+  --almanac-red: #bd4d3c;
+  --almanac-yellow: #f6c65b;
+  --almanac-green: #28765f;
+  min-height: 100vh;
+  color: var(--almanac-ink);
+  background: #f8f0e1;
+}
+
+.bookease-public main { overflow: clip; }
+
+.bookease-scroll-progress {
+  height: 4px;
+  background: linear-gradient(90deg, var(--almanac-red), var(--almanac-yellow) 45%, var(--almanac-blue));
+  box-shadow: none;
+}
+
+.orbit-grid {
+  background-image:
+    linear-gradient(rgba(24, 42, 69, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(24, 42, 69, 0.09) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.58), transparent 82%);
+}
+
+.orbit-noise { opacity: 0.07; mix-blend-mode: multiply; }
+
+.orbit-section-label {
+  color: var(--almanac-blue);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+}
+
+.orbit-section-label::after { background: var(--almanac-red); }
+
+.orbit-nav {
+  background: rgba(251, 245, 233, 0.88);
+  border-bottom-color: rgba(24, 42, 69, 0.12);
+  box-shadow: none;
+  backdrop-filter: blur(18px) saturate(115%);
+}
+
+.orbit-nav-link { color: #5f6d81; font-family: Georgia, 'Times New Roman', serif; }
+.orbit-nav-link:hover, .orbit-nav-link.active { color: var(--almanac-ink); }
+
+.orbit-card,
+.orbit-glass {
+  border-color: rgba(24, 42, 69, 0.16);
+  background: var(--almanac-paper);
+  box-shadow: 8px 9px 0 rgba(24, 42, 69, 0.11), 0 18px 32px rgba(86, 58, 25, 0.09);
+  backdrop-filter: none;
+}
+
+.orbit-card::after { background: none; }
+
+.orbit-button-primary,
+.orbit-button-secondary {
+  border-radius: 0.7rem;
+  font-family: Georgia, 'Times New Roman', serif;
+  letter-spacing: 0.01em;
+}
+
+.orbit-button-primary {
+  color: #fffaf1;
+  border-color: var(--almanac-blue);
+  background: var(--almanac-blue);
+  box-shadow: 4px 4px 0 rgba(24, 42, 69, 0.22);
+}
+
+.orbit-button-secondary {
+  color: var(--almanac-ink);
+  border-color: rgba(24, 42, 69, 0.26);
+  background: transparent;
+}
+
+.orbit-button-primary:hover,
+.orbit-button-secondary:hover {
+  color: inherit;
+  transform: translate(-1px, -2px);
+  box-shadow: 5px 6px 0 rgba(24, 42, 69, 0.18);
+}
+
+.almanac-home { color: var(--almanac-ink); background: #f8f0e1; }
+.almanac-kicker { color: var(--almanac-red); font-family: Georgia, 'Times New Roman', serif; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.almanac-display { font-family: Georgia, 'Times New Roman', serif; color: var(--almanac-ink); letter-spacing: -0.055em; }
+.almanac-copy { color: var(--almanac-muted); }
+.almanac-rule { height: 1px; background: rgba(24, 42, 69, 0.17); }
+
+.almanac-hero {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 82% 15%, rgba(246, 198, 91, 0.52), transparent 17rem),
+    radial-gradient(circle at 14% 74%, rgba(88, 135, 222, 0.14), transparent 23rem),
+    #f8f0e1;
+}
+
+.almanac-hero::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.07;
+  background-image: repeating-linear-gradient(0deg, rgba(24,42,69,0.45) 0 1px, transparent 1px 5px);
+  mix-blend-mode: multiply;
+}
+
+.almanac-note {
+  position: relative;
+  border: 1px solid rgba(24, 42, 69, 0.18);
+  background: #fff9ed;
+  box-shadow: 7px 8px 0 rgba(24,42,69,0.14), 0 22px 36px rgba(84,56,20,0.1);
+  transform-style: preserve-3d;
+}
+
+.almanac-note::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 5px;
+  background: var(--almanac-blue);
+}
+
+.almanac-stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  border: 1px solid rgba(24,42,69,0.25);
+  background: #fffcf5;
+  padding: 0.35rem 0.62rem;
+  color: var(--almanac-ink);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.almanac-board {
+  position: relative;
+  min-height: 470px;
+  border: 1px solid rgba(24,42,69,0.28);
+  background:
+    linear-gradient(90deg, rgba(24,42,69,0.06) 1px, transparent 1px),
+    linear-gradient(rgba(24,42,69,0.06) 1px, transparent 1px),
+    #e9dcc3;
+  background-size: 28px 28px;
+  box-shadow: 14px 14px 0 rgba(24,42,69,0.16);
+  transform-style: preserve-3d;
+}
+
+.almanac-board::before {
+  content: 'BookEase community board';
+  position: absolute;
+  left: 1.25rem;
+  top: 1rem;
+  color: rgba(24,42,69,0.48);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.almanac-card {
+  position: absolute;
+  border: 1px solid rgba(24,42,69,0.26);
+  background: #fffaf0;
+  box-shadow: 5px 6px 0 rgba(24,42,69,0.18), 0 18px 30px rgba(72,48,18,0.12);
+}
+
+.almanac-card.request { left: 6%; top: 16%; width: 61%; transform: rotate(-2deg); }
+.almanac-card.bid { right: 5%; top: 47%; width: 55%; transform: rotate(2.2deg); background: #eaf3f0; }
+.almanac-card.confirm { bottom: 7%; left: 27%; width: 50%; transform: rotate(-0.8deg); background: #f7d675; }
+
+.almanac-tape { position: absolute; left: 42%; top: -10px; width: 26%; height: 20px; background: rgba(246,198,91,0.68); transform: rotate(-3deg); }
+.almanac-tab { display: inline-block; padding: 0.28rem 0.58rem; color: #fffaf1; background: var(--almanac-blue); font-size: 0.64rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+.almanac-tab.green { background: var(--almanac-green); }
+.almanac-tab.red { background: var(--almanac-red); }
+.almanac-pin { position: absolute; width: 13px; height: 13px; border: 1px solid rgba(24,42,69,0.25); border-radius: 50%; background: var(--almanac-red); box-shadow: 0 2px 0 rgba(24,42,69,0.25); }
+.almanac-pin.one { right: 10%; top: 8%; } .almanac-pin.two { left: 9%; bottom: 9%; background: var(--almanac-blue); }
+
+.almanac-category {
+  position: relative;
+  border: 1px solid rgba(24,42,69,0.17);
+  background: #fff9ed;
+  box-shadow: 4px 5px 0 rgba(24,42,69,0.1);
+}
+
+.almanac-category::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 6px; background: var(--tone, var(--almanac-blue)); }
+
+.almanac-number { color: var(--almanac-red); font-family: Georgia, 'Times New Roman', serif; font-size: 4.3rem; font-weight: 700; line-height: 0.8; letter-spacing: -0.08em; }
+
+.bookease-public footer { border-color: rgba(24,42,69,0.16) !important; background: #e9dcc3; color: var(--almanac-ink); }
+.bookease-public footer p { color: var(--almanac-muted) !important; }
+
+.bookease-public .glass,
+.bookease-public .glass-card { background: #fff9ed; border-color: rgba(24,42,69,0.16); box-shadow: 5px 6px 0 rgba(24,42,69,0.1); }
+.bookease-public .glass-input { color: var(--almanac-ink); background: #fffdf7; border-color: rgba(24,42,69,0.2); }
+.bookease-public .text-apple-gray-900 { color: var(--almanac-ink) !important; }
+.bookease-public .text-apple-gray-700 { color: #30415d !important; }
+.bookease-public .text-apple-gray-600 { color: #53627a !important; }
+.bookease-public .text-apple-gray-500 { color: var(--almanac-muted) !important; }
+.bookease-public .text-apple-gray-400 { color: #7c879a !important; }
+.bookease-public .section-title { color: var(--almanac-ink); font-family: Georgia, 'Times New Roman', serif; }
+.bookease-public .section-subtitle { color: var(--almanac-muted); }
+.bookease-public .apple-btn-primary { color: #fffaf1; background: var(--almanac-blue); }
+.bookease-public .apple-btn-secondary { color: var(--almanac-ink); background: rgba(36,99,212,0.08); }
+
+@media (max-width: 639px) {
+  .almanac-board { min-height: 500px; }
+  .almanac-card.request { left: 5%; width: 72%; }
+  .almanac-card.bid { right: 4%; width: 68%; top: 48%; }
+  .almanac-card.confirm { left: 15%; width: 73%; }
+}
