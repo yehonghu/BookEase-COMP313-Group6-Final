@@ -1,115 +1,29 @@
-/**
- * @module components/ServiceCard
- * @description Apple-style service request card with glassmorphism.
- */
-
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { MapPin, Clock, DollarSign, Users, Tag } from 'lucide-react';
+import { ArrowUpRight, CalendarDays, MapPin, UsersRound } from 'lucide-react';
 
-const serviceTypeIcons = {
-  haircut: '💇',
-  massage: '💆',
-  cleaning: '🧹',
-  plumbing: '🔧',
-  electrical: '⚡',
-  tutoring: '📚',
-  photography: '📸',
-  catering: '🍽️',
-  fitness: '💪',
-  beauty: '💄',
-  repair: '🛠️',
-  moving: '📦',
-  gardening: '🌿',
-  painting: '🎨',
-  other: '📋',
+const visuals = {
+  cleaning: 'service-home-care.jpg', haircut: 'service-home-care.jpg', massage: 'service-home-care.jpg', beauty: 'service-home-care.jpg',
+  plumbing: 'service-repair.jpg', electrical: 'service-repair.jpg', repair: 'service-repair.jpg', moving: 'service-repair.jpg',
+  gardening: 'service-garden.jpg', tutoring: 'service-garden.jpg', photography: 'service-garden.jpg', fitness: 'service-garden.jpg', other: 'neighbourhood-hero.jpg',
 };
+const asset = (name) => `${import.meta.env.BASE_URL}images/${name}`;
+const formatDate = (date) => new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 
-const statusStyles = {
-  open: 'status-open',
-  in_progress: 'status-in_progress',
-  completed: 'status-completed',
-  cancelled: 'status-cancelled',
-};
-
-const ServiceCard = ({ service, index = 0 }) => {
-  const formatDate = (date) => {
-    return new Date(date).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    });
-  };
-
+export default function ServiceCard({ service, index = 0 }) {
+  const lowestBid = service.bids?.length ? Math.min(...service.bids.map((bid) => bid.price)) : null;
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.05 }}
-    >
-      <Link to={`/services/${service._id}`} className="block no-underline">
-        <div className="glass-card p-5 h-full">
-          {/* Header */}
-          <div className="flex items-start justify-between mb-3">
-            <div className="flex items-center gap-2.5">
-              <span className="text-2xl">
-                {serviceTypeIcons[service.serviceType] || '📋'}
-              </span>
-              <span className={`apple-badge text-[11px] ${statusStyles[service.status]}`}>
-                {service.status.replace('_', ' ')}
-              </span>
-            </div>
-            {service.bids?.length > 0 && (
-              <div className="flex items-center gap-1 text-apple-gray-500">
-                <Users className="w-3.5 h-3.5" />
-                <span className="text-[12px] font-medium">{service.bids.length} bids</span>
-              </div>
-            )}
-          </div>
-
-          {/* Title */}
-          <h3 className="text-[16px] font-semibold text-apple-gray-900 mb-1.5 line-clamp-2 leading-tight">
-            {service.title}
-          </h3>
-
-          {/* Description */}
-          <p className="text-[13px] text-apple-gray-500 mb-3 line-clamp-2 leading-relaxed">
-            {service.description}
-          </p>
-
-          {/* Meta */}
-          <div className="space-y-1.5">
-            <div className="flex items-center gap-2 text-[12px] text-apple-gray-500">
-              <MapPin className="w-3.5 h-3.5 text-apple-gray-400" />
-              <span>{service.location}</span>
-            </div>
-            <div className="flex items-center gap-2 text-[12px] text-apple-gray-500">
-              <Clock className="w-3.5 h-3.5 text-apple-gray-400" />
-              <span>{formatDate(service.preferredDate)} · {service.preferredTime}</span>
-            </div>
-            {(service.budget?.min > 0 || service.budget?.max > 0) && (
-              <div className="flex items-center gap-2 text-[12px] text-apple-gray-500">
-                <DollarSign className="w-3.5 h-3.5 text-apple-gray-400" />
-                <span>Budget: ${service.budget.min} - ${service.budget.max}</span>
-              </div>
-            )}
-          </div>
-
-          {/* Footer */}
-          {service.bids?.length > 0 && (
-            <div className="mt-3 pt-3 border-t border-apple-gray-100">
-              <div className="flex items-center justify-between">
-                <span className="text-[12px] text-apple-gray-500">Lowest bid</span>
-                <span className="text-[15px] font-semibold text-apple-green">
-                  ${Math.min(...service.bids.map((b) => b.price))}
-                </span>
-              </div>
-            </div>
-          )}
+    <motion.article className="request-card" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .45, delay: index * .05 }}>
+      <Link to={`/services/${service._id}`} className="request-card__link" aria-label={`Open ${service.title}`}>
+        <div className="request-card__visual"><img src={asset(visuals[service.serviceType] || visuals.other)} alt="" loading="lazy" /><span className="request-card__veil" /><span className={`request-card__status request-card__status--${service.status}`}>{service.status.replace('_', ' ')}</span><span className="request-card__type">{service.serviceType}</span></div>
+        <div className="request-card__body">
+          <div className="request-card__topline"><span>{service.customer?.name || 'Neighbour request'}</span><ArrowUpRight size={16} /></div>
+          <h3>{service.title}</h3>
+          <p>{service.description}</p>
+          <div className="request-card__meta"><span><MapPin size={14} /> {service.location}</span><span><CalendarDays size={14} /> {formatDate(service.preferredDate)} · {service.preferredTime}</span></div>
+          <div className="request-card__footer"><span>{service.bids?.length ? <><UsersRound size={14} /> {service.bids.length} response{service.bids.length === 1 ? '' : 's'}</> : 'Awaiting responses'}</span><b>{lowestBid ? `from $${lowestBid}` : `$${service.budget?.min || 0}–${service.budget?.max || 0}`}</b></div>
         </div>
       </Link>
-    </motion.div>
+    </motion.article>
   );
-};
-
-export default ServiceCard;
+}

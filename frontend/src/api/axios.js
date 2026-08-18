@@ -5,8 +5,11 @@
 
 import axios from 'axios';
 
+const configuredBaseURL = import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, '') || '/api';
+const usesHashRouter = import.meta.env.VITE_ROUTER_MODE === 'hash';
+
 const API = axios.create({
-  baseURL: '/api',
+  baseURL: configuredBaseURL,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
@@ -36,7 +39,9 @@ API.interceptors.response.use(
     if (error.response?.status === 401) {
       localStorage.removeItem('bookease_token');
       localStorage.removeItem('bookease_user');
-      if (window.location.pathname !== '/login') {
+      if (usesHashRouter) {
+        window.location.hash = '#/login';
+      } else if (window.location.pathname !== '/login') {
         window.location.href = '/login';
       }
     }

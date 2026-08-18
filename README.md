@@ -1,26 +1,32 @@
 # BookEase
 
-> A full-stack local-service marketplace that turns a service request into comparable bids and a conflict-aware booking.
+> A full-stack local-service marketplace that turns a request into comparable provider offers and a conflict-aware booking.
 
-BookEase is a portfolio-grade React, Express, and MongoDB application for customers, independent service providers, and administrators. The interface now uses the **Night Market Orbit** system: a dark, spatial public experience with layered request, bid, and booking states, depth-based motion, and scroll-led storytelling. The operational product routes preserve the real marketplace workflow behind the visual presentation.
+BookEase is a portfolio-grade React, Express, and MongoDB application for customers, independent service providers, and administrators. Its public experience is rebuilt as **Neighbourhood in Motion**: a warm editorial service field with a pointer-responsive Three.js orbit, scroll-led product storytelling, original community-service visuals, and readable request-to-booking states.
+
+The visual layer does not replace the product. The application preserves the real marketplace workflow behind the public experience and can run against the included Express and MongoDB backend.
 
 ## Product Flow
 
 ```text
-Customer request → provider proposals → bid selection → availability verification → booking creation → review
+Customer request → provider offers → bid selection → availability verification → booking creation → review
 ```
 
-The product supports three roles. Customers create requests and choose between bids. Providers publish bids and manage availability. Administrators oversee users, providers, bookings, reviews, and contact messages.
+| Role | Core capabilities |
+|---|---|
+| Customer | Create service requests, compare offers, select a provider, track bookings, save favourites, and review completed work. |
+| Provider | Browse relevant requests, submit and manage offers, maintain availability, manage bookings, and build a service profile. |
+| Administrator | Monitor marketplace activity and manage users, providers, services, bookings, reviews, and contact messages. |
 
 ## Technology
 
 | Area | Tools |
 |---|---|
-| Frontend | React 18, Vite, React Router, Tailwind CSS |
-| Interaction | Framer Motion, CSS perspective and reduced-motion support |
+| Frontend | React 18, Vite, React Router, Tailwind CSS, Bootstrap compatibility layer |
+| Interaction | Framer Motion, Three.js, React Three Fiber, Drei, reduced-motion support |
 | Backend | Node.js, Express, Mongoose, JWT, express-validator |
 | Database | MongoDB |
-| Deployment | Render-compatible production configuration and static GitHub Pages preview |
+| Deployment | Render-compatible Express configuration plus a GitHub Pages read-only public demo |
 
 ## Local Development
 
@@ -41,7 +47,7 @@ npm install
 
 ### Configure the backend
 
-Create `backend/.env` from the following template. Keep all real credentials outside Git.
+Create `backend/.env` with real deployment credentials kept outside Git.
 
 ```env
 PORT=5000
@@ -50,13 +56,6 @@ JWT_SECRET=replace-with-a-long-random-secret
 JWT_EXPIRES_IN=7d
 NODE_ENV=development
 FRONTEND_URL=http://localhost:5173
-```
-
-### Seed demo data (optional)
-
-```bash
-cd backend
-npm run seed
 ```
 
 ### Run locally
@@ -73,9 +72,11 @@ cd frontend
 npm run dev
 ```
 
-Vite will display the frontend URL. The Express server uses port `5000` by default.
+The Vite development server proxies `/api` to `http://localhost:5001` by default. Set `VITE_DEV_API_PROXY` if your local Express server uses another address.
 
-### Build for production
+## Real Production Deployment
+
+Build the frontend in its normal production mode for Express, Render, or another application host.
 
 ```bash
 cd frontend
@@ -85,7 +86,32 @@ cd ../backend
 npm start
 ```
 
-In production, Express serves the built frontend alongside the API.
+The normal production build uses `BrowserRouter` and the same-origin `/api` path. If frontend and API are hosted on different domains, configure the frontend build with:
+
+```env
+VITE_API_BASE_URL=https://api.example.com/api
+```
+
+Do **not** set `VITE_DEMO_MODE` in a real deployment. That mode exists only for the static public showcase.
+
+## GitHub Pages Demonstration
+
+The public Pages build is deliberately read-only. It includes representative service requests so visitors can browse the redesigned product, filter the request board, and inspect service details without a database or credentials.
+
+```bash
+cd frontend
+npm run build:pages
+```
+
+The Pages build automatically uses the repository base path and `HashRouter`. It is controlled by `frontend/.env.pages`:
+
+```env
+VITE_DEPLOY_TARGET=pages
+VITE_ROUTER_MODE=hash
+VITE_DEMO_MODE=true
+```
+
+The public demonstration does not simulate writes. Authentication, request creation, provider offers, bid acceptance, bookings, reviews, favourites, contact messages, and administration remain connected to the real API in normal application mode.
 
 ## Structure
 
@@ -97,27 +123,22 @@ backend/
     routes/           # API routes
     middleware/       # Authentication, role checks, validation, and error handling
 frontend/
+  public/images/      # Original BookEase visual assets
   src/
-    app/              # Role-aware route map
+    app/              # Environment-aware route map
+    api/              # Real API wrappers and Pages demo boundary
     auth/             # Authentication provider and route guards
-    components/       # Shared UI and motion primitives
+    components/       # Shared marketplace UI
+    data/             # Read-only Pages demonstration data
     layouts/          # Public, customer, provider, and admin shells
     pages/            # Marketplace, customer, provider, admin, and public routes
+    three/            # Interactive service-orbit scene
 render.yaml           # Render deployment blueprint
 ```
 
-## Key Capabilities
-
-| Customer | Provider | Administrator |
-|---|---|---|
-| Publish service requests | Browse relevant requests | Monitor marketplace activity |
-| Compare price, availability, and provider context | Submit and manage competitive bids | Manage users and providers |
-| Confirm bids and track bookings | Manage bookings and weekly availability | Review bookings, reviews, and contact messages |
-| Rate completed services | Track ratings and service activity | Maintain platform quality |
-
 ## Accessibility and Motion
 
-The public marketing surface uses scroll progress, perspective-based card movement, parallax lighting, and responsive hover depth. Visitors who set `prefers-reduced-motion` receive a stable, reduced-motion presentation.
+The public surface supports keyboard-accessible navigation, legible text overlays, reduced-motion preferences, responsive reflow, and non-essential animation fallbacks. The Three.js service orbit has accompanying text controls that navigate to the request board.
 
 ## Contributor
 

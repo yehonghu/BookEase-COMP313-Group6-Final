@@ -3,7 +3,7 @@
  * @description Main application component with routing configuration.
  */
 
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import AuthProvider from '../auth/AuthProvider';
 import RequireAuth from '../auth/RequireAuth';
@@ -48,9 +48,11 @@ import ContactInbox from '../pages/admin/ContactInbox';
 // Shared Pages
 import ManageAccount from '../pages/shared/ManageAccount';
 
+const Router = import.meta.env.VITE_ROUTER_MODE === 'hash' ? HashRouter : BrowserRouter;
+
 const App = () => {
   return (
-    <BrowserRouter>
+    <Router>
       <AuthProvider>
         <Toaster
           position="top-center"
@@ -141,7 +143,7 @@ const App = () => {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </AuthProvider>
-    </BrowserRouter>
+    </Router>
   );
 };
 
