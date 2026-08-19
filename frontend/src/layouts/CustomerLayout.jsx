@@ -31,7 +31,7 @@ const CustomerLayout = () => {
         {/* Logo */}
         <div className="p-5 border-b border-apple-gray-200/50">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl gradient-blue flex items-center justify-center">
+            <div className="w-8 h-8 rounded-xl bg-[#2858d9] shadow-[0_6px_14px_rgba(40,88,217,0.24)] flex items-center justify-center shrink-0">
               <Calendar className="w-4.5 h-4.5 text-white" />
             </div>
             <span className="text-[17px] font-semibold tracking-tight">BookEase</span>
@@ -41,7 +41,7 @@ const CustomerLayout = () => {
         {/* User Info */}
         <div className="p-4 border-b border-apple-gray-200/50">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full gradient-blue flex items-center justify-center overflow-hidden shrink-0">
+            <div className="w-10 h-10 rounded-full bg-[#2858d9] flex items-center justify-center overflow-hidden shrink-0">
               {user?.avatar ? (
                 <img
                   src={user.avatar}

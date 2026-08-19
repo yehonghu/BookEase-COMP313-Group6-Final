@@ -30,7 +30,7 @@ const ProviderLayout = () => {
       >
         <div className="p-5 border-b border-apple-gray-200/50">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl gradient-green flex items-center justify-center">
+            <div className="w-8 h-8 rounded-xl bg-[#5c9b6a] shadow-[0_6px_14px_rgba(92,155,106,0.24)] flex items-center justify-center shrink-0">
               <Briefcase className="w-4.5 h-4.5 text-white" />
             </div>
             <span className="text-[17px] font-semibold tracking-tight">BookEase</span>
@@ -39,7 +39,7 @@ const ProviderLayout = () => {
 
         <div className="p-4 border-b border-apple-gray-200/50">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full gradient-green flex items-center justify-center overflow-hidden shrink-0">
+            <div className="w-10 h-10 rounded-full bg-[#5c9b6a] flex items-center justify-center overflow-hidden shrink-0">
               {user?.avatar ? (
                 <img
                   src={user.avatar}
