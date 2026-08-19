@@ -39,10 +39,18 @@ const ProviderLayout = () => {
 
         <div className="p-4 border-b border-apple-gray-200/50">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full gradient-green flex items-center justify-center">
-              <span className="text-white text-sm font-semibold">
-                {user?.name?.charAt(0)?.toUpperCase()}
-              </span>
+            <div className="w-10 h-10 rounded-full gradient-green flex items-center justify-center overflow-hidden shrink-0">
+              {user?.avatar ? (
+                <img
+                  src={user.avatar}
+                  alt={`${user?.name || 'Provider'} profile`}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <span className="text-white text-sm font-semibold">
+                  {user?.name?.charAt(0)?.toUpperCase()}
+                </span>
+              )}
             </div>
             <div>
               <p className="text-[14px] font-semibold text-apple-gray-900">{user?.name}</p>
