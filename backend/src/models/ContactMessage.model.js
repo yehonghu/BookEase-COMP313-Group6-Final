@@ -9,8 +9,8 @@ const ContactMessageSchema = new mongoose.Schema(
       required: true,
       trim: true,
       lowercase: true,
-      maxlength: 120,
-      index: true,
+            maxlength: 120,
+
     },
 
     message: { type: String, required: true, trim: true, maxlength: 2000 },

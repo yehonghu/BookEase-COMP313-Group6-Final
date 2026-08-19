@@ -2,6 +2,7 @@ import { useState } from "react";
 import { sendContactMessage } from "../api/contact.api";
 
 const isPublicDemo = import.meta.env.VITE_DEMO_MODE === "true";
+const uploadsEnabled = import.meta.env.VITE_UPLOADS_ENABLED === "true";
 
 export default function Contact() {
   const [form, setForm] = useState({
@@ -109,7 +110,7 @@ export default function Contact() {
     
       const fd = new FormData();
       Object.entries(form).forEach(([k, v]) => fd.append(k, v ?? ""));
-      if (file) fd.append("attachment", file);
+      if (uploadsEnabled && file) fd.append("attachment", file);
 
       await sendContactMessage(fd);
 
@@ -258,23 +259,23 @@ export default function Contact() {
             )}
           </div>
 
-          {/* File upload */}
-          <div>
-            <label className="text-sm text-apple-gray-700">
-              Attachment (optional)
-            </label>
-            <input
-              type="file"
-              accept="image/png,image/jpeg,image/webp"
-              onChange={onPickFile}
-              className="w-full mt-1 px-4 py-2.5 rounded-xl border border-apple-gray-200 focus:outline-none bg-white"
-            />
-            {file && (
-              <p className="text-xs text-apple-gray-500 mt-1">
-                Selected: <span className="font-semibold">{file.name}</span>
-              </p>
-            )}
-          </div>
+          {/* Attachments are only enabled when durable object storage is configured. */}
+          {uploadsEnabled ? (
+            <div>
+              <label className="text-sm text-apple-gray-700">Attachment (optional)</label>
+              <input
+                type="file"
+                accept="image/png,image/jpeg,image/webp"
+                onChange={onPickFile}
+                className="w-full mt-1 px-4 py-2.5 rounded-xl border border-apple-gray-200 focus:outline-none bg-white"
+              />
+              {file && <p className="text-xs text-apple-gray-500 mt-1">Selected: <span className="font-semibold">{file.name}</span></p>}
+            </div>
+          ) : (
+            <div className="rounded-xl border border-apple-gray-200 bg-apple-gray-50 px-4 py-3 text-xs leading-5 text-apple-gray-500">
+              Attachments are temporarily unavailable in the Toronto public beta. Please include the relevant details in your message instead.
+            </div>
+          )}
 
           {/* Message */}
           <div>

@@ -13,3 +13,17 @@ services:
         value: 7d
       - key: MONGODB_URI
         sync: false
+      - key: BOOTSTRAP_ADMIN_EMAIL
+        sync: false
+      - key: BOOTSTRAP_ADMIN_PASSWORD
+        sync: false
+      - key: BOOTSTRAP_ADMIN_NAME
+        value: BookEase Admin
+      - key: RATE_LIMIT_MAX
+        value: "200"
+      - key: AUTH_RATE_LIMIT_MAX
+        value: "25"
+      - key: UPLOADS_ENABLED
+        value: "false"
+      - key: VITE_UPLOADS_ENABLED
+        value: "false"

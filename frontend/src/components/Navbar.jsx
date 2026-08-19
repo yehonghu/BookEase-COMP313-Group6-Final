@@ -7,6 +7,7 @@ import useAuth from '../hooks/useAuth';
 const links = [
   { label: 'Browse', path: '/services' },
   { label: 'Community', path: '/reviews' },
+  { label: 'Payment preview', path: '/payment-preview' },
   { label: 'About', path: '/about' },
   { label: 'Contact', path: '/contact' },
 ];

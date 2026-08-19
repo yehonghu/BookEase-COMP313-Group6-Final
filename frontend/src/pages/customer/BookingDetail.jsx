@@ -4,7 +4,7 @@
  */
 
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, MapPin, Clock, DollarSign, User, Star, Phone, Mail } from 'lucide-react';
 import toast from 'react-hot-toast';
@@ -153,12 +153,17 @@ const BookingDetail = () => {
           <h2 className="text-[17px] font-semibold text-apple-gray-900 mb-3">Actions</h2>
           <div className="flex gap-2 flex-wrap">
             {booking.status === 'confirmed' && isCustomer && (
-              <button
-                onClick={() => handleStatusUpdate('cancelled', 'Cancelled by customer')}
-                className="apple-btn apple-btn-danger apple-btn-sm"
-              >
-                Cancel Booking
-              </button>
+              <>
+                <Link to="/payment-preview" className="apple-btn apple-btn-primary apple-btn-sm no-underline">
+                  Preview checkout
+                </Link>
+                <button
+                  onClick={() => handleStatusUpdate('cancelled', 'Cancelled by customer')}
+                  className="apple-btn apple-btn-danger apple-btn-sm"
+                >
+                  Cancel Booking
+                </button>
+              </>
             )}
             {booking.status === 'completed' && isCustomer && !booking.rating && (
               <button

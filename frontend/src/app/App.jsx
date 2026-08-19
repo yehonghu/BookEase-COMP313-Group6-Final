@@ -24,6 +24,8 @@ import Register from '../pages/public/Register';
 import About from '../pages/About';
 import Contact from '../pages/Contact';
 import ReviewsPage from '../pages/review/ReviewsPage';
+import PaymentPreview from '../pages/public/PaymentPreview';
+import LegalPage from '../pages/public/LegalPage';
 
 // Customer Pages
 import CustomerDashboard from '../pages/customer/Dashboard';
@@ -83,6 +85,10 @@ const App = () => {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/reviews" element={<ReviewsPage />} />
+            <Route path="/payment-preview" element={<PaymentPreview />} />
+            <Route path="/terms" element={<LegalPage type="terms" />} />
+            <Route path="/privacy" element={<LegalPage type="privacy" />} />
+            <Route path="/cancellations" element={<LegalPage type="cancellations" />} />
           </Route>
 
           {/* Customer Routes */}
