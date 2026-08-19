@@ -36,7 +36,9 @@ export default function Navbar() {
           {isAuthenticated ? (
             <div className="motion-profile">
               <button type="button" className="motion-profile__button" onClick={() => setProfileOpen((open) => !open)} aria-expanded={profileOpen}>
-                <span>{user?.name?.charAt(0)?.toUpperCase() || 'U'}</span><b>{user?.name || 'Account'}</b><ChevronDown size={14} />
+                <span className="motion-profile__avatar">
+                  {user?.avatar ? <img src={user.avatar} alt="" /> : (user?.name?.charAt(0)?.toUpperCase() || 'U')}
+                </span><b>{user?.name || 'Account'}</b><ChevronDown size={14} />
               </button>
               <AnimatePresence>
                 {profileOpen && <motion.div className="motion-profile__menu" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }} transition={{ duration: .16 }}>

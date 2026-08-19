@@ -6,11 +6,12 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { User, Mail, Phone, MapPin, FileText, Shield, Save, Lock, Tag, Camera } from 'lucide-react';
+import { User, Mail, Phone, MapPin, FileText, Shield, Save, Lock, Tag } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { authAPI } from '../../api/auth.api';
 import useAuth from '../../hooks/useAuth';
 import Loading from '../../components/Loading';
+import ProfileAvatarEditor from '../../components/ProfileAvatarEditor';
 
 const ManageAccount = () => {
   const { user, updateUser } = useAuth();
@@ -146,10 +147,14 @@ const ManageAccount = () => {
         {/* Profile Header Card */}
         <div className="glass-card p-6 mb-6">
           <div className="flex items-center gap-4">
-            <div className={`w-16 h-16 rounded-full flex items-center justify-center text-white font-bold text-[24px] ${
+            <div className={`w-16 h-16 rounded-full overflow-hidden flex items-center justify-center text-white font-bold text-[24px] ${
               user?.role === 'admin' ? 'gradient-red' : isProvider ? 'gradient-green' : 'gradient-blue'
             }`}>
-              {profile.name?.charAt(0)?.toUpperCase() || 'U'}
+              {profile.avatar ? (
+                <img src={profile.avatar} alt="Profile avatar" className="w-full h-full object-cover" />
+              ) : (
+                profile.name?.charAt(0)?.toUpperCase() || 'U'
+              )}
             </div>
             <div>
               <h2 className="text-[20px] font-bold text-apple-gray-900">{profile.name || 'User'}</h2>
@@ -195,6 +200,15 @@ const ManageAccount = () => {
                 <h3 className="text-[17px] font-semibold text-apple-gray-900 mb-4">
                   Personal Information
                 </h3>
+
+                <ProfileAvatarEditor
+                  name={profile.name}
+                  avatar={profile.avatar}
+                  disabled={saving}
+                  onChange={(avatar) => setProfile((current) => ({ ...current, avatar }))}
+                />
+
+                <div className="my-5 border-t border-apple-gray-100" />
 
                 <div className="space-y-4">
                   <div>

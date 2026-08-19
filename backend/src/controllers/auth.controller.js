@@ -6,6 +6,19 @@
 
 const User = require('../models/User.model');
 
+const MAX_AVATAR_DATA_URL_LENGTH = 350000;
+const isValidAvatar = (avatar) => {
+  if (avatar === '') return true;
+  if (typeof avatar !== 'string') return false;
+
+  const value = avatar.trim();
+  const isDataImage = /^data:image\/(?:jpeg|png|webp);base64,[A-Za-z0-9+/]+={0,2}$/.test(value)
+    && value.length <= MAX_AVATAR_DATA_URL_LENGTH;
+  const isHttpsImage = /^https:\/\/[^\s]{1,2040}$/.test(value);
+
+  return isDataImage || isHttpsImage;
+};
+
 /**
  * Register a new user.
  * @route POST /api/auth/register
@@ -142,9 +155,18 @@ const updateProfile = async (req, res, next) => {
     const allowedFields = ['name', 'phone', 'bio', 'location', 'specialties', 'avatar'];
     const updates = {};
 
+    if (req.body.avatar !== undefined && !isValidAvatar(req.body.avatar)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Avatar must be a JPG, PNG, or WebP image under the profile size limit.',
+      });
+    }
+
     allowedFields.forEach((field) => {
       if (req.body[field] !== undefined) {
-        updates[field] = req.body[field];
+        updates[field] = field === 'avatar' && typeof req.body[field] === 'string'
+          ? req.body[field].trim()
+          : req.body[field];
       }
     });
 

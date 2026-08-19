@@ -42,22 +42,22 @@ const MyServices = () => {
       </motion.div>
 
       <div className="glass-card p-4 mb-6">
-        <div className="flex gap-3">
-          <div className="flex-1 relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-apple-gray-400" />
+        <div className="bookease-filter-row">
+          <div className="bookease-search-field">
+            <Search className="bookease-search-field__icon" aria-hidden="true" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && fetchServices()}
               placeholder="Search requests..."
-              className="glass-input pl-11"
+              className="glass-input bookease-search-field__input"
             />
           </div>
           <select
             value={serviceType}
             onChange={(e) => setServiceType(e.target.value)}
-            className="glass-input w-[180px]"
+            className="glass-input bookease-filter-select bookease-filter-select--provider"
           >
             <option value="">All Types</option>
             <option value="haircut">Haircut</option>

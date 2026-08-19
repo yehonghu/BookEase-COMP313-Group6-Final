@@ -89,21 +89,21 @@ const Services = () => {
         transition={{ delay: 0.1 }}
         className="glass-card p-4 mb-6"
       >
-        <div className="flex flex-col md:flex-row gap-3">
-          <form onSubmit={handleSearch} className="flex-1 relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-apple-gray-400" />
+        <div className="bookease-filter-row">
+          <form onSubmit={handleSearch} className="bookease-search-field">
+            <Search className="bookease-search-field__icon" aria-hidden="true" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search services..."
-              className="glass-input pl-11"
+              className="glass-input bookease-search-field__input"
             />
           </form>
           <select
             value={serviceType}
             onChange={(e) => setServiceType(e.target.value)}
-            className="glass-input md:w-[200px]"
+            className="glass-input bookease-filter-select"
           >
             {serviceTypes.map((type) => (
               <option key={type.value} value={type.value}>
