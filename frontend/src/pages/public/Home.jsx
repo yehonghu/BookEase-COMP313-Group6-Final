@@ -84,9 +84,24 @@ export default function Home() {
 
       <section id="how-it-works" className="motion-flow">
         <div className="motion-shell">
-          <motion.div {...fadeUp} className="motion-flow__lead"><p className="motion-kicker">A visible handoff</p><h2>From a small signal<br />to a settled plan.</h2><p>Every state in BookEase has a purpose. The flow stays explicit for customers, providers, and the people responsible for keeping the platform dependable.</p></motion.div>
+          <div className="motion-flow__lead">
+            <motion.div {...fadeUp} className="motion-flow__context">
+              <p className="motion-kicker">A visible handoff</p>
+              <div className="motion-flow__signal" aria-label="Request, response, and booking lifecycle">
+                <div className="motion-flow__signal-head"><span>Live lifecycle</span><b>Toronto / GTA</b></div>
+                <div className="motion-flow__route" aria-hidden="true"><i /><i /><i /></div>
+                <div className="motion-flow__signal-labels"><span>Request</span><span>Response</span><span>Booking</span></div>
+              </div>
+              <div className="motion-flow__context-meta"><span><BadgeCheck size={15} /> Role-aware states</span><span><ShieldCheck size={15} /> A traceable handoff</span></div>
+            </motion.div>
+            <motion.div {...fadeUp} className="motion-flow__copy" transition={{ duration: 0.7, delay: 0.08 }}>
+              <h2>From a small signal<br />to a settled plan.</h2>
+              <p>Every state in BookEase has a purpose. The journey stays explicit for customers, providers, and the people responsible for keeping the platform dependable.</p>
+              <Link to="/services" className="motion-flow__link">Follow active requests <ArrowRight size={16} /></Link>
+            </motion.div>
+          </div>
           <div className="motion-flow__steps">
-            {steps.map((step, index) => { const Icon = step.icon; return <motion.article key={step.number} {...fadeUp} transition={{ duration: 0.65, delay: index * 0.1 }}><span>{step.number}</span><Icon size={24} strokeWidth={1.6} /><h3>{step.title}</h3><p>{step.copy}</p></motion.article>; })}
+            {steps.map((step, index) => { const Icon = step.icon; return <motion.article key={step.number} {...fadeUp} transition={{ duration: 0.65, delay: 0.16 + index * 0.1 }}><div className="motion-flow__step-top"><span>{step.number}</span><div><Icon size={22} strokeWidth={1.7} /><i /></div></div><h3>{step.title}</h3><p>{step.copy}</p><span className="motion-flow__step-footer">Step {index + 1} <ArrowRight size={14} /></span></motion.article>; })}
           </div>
         </div>
       </section>
