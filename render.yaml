@@ -2,6 +2,7 @@ services:
   - type: web
     name: bookease
     runtime: node
+    plan: free
     buildCommand: chmod +x render-build.sh && ./render-build.sh
     startCommand: cd backend && node server.js
     envVars:
