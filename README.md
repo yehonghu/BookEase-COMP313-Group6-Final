@@ -2,6 +2,10 @@
 
 > A full-stack local-service marketplace that turns a request into comparable provider offers and a conflict-aware booking.
 
+[![CI](https://github.com/yehonghu/BookEase-COMP313-Group6-Final/actions/workflows/ci.yml/badge.svg)](https://github.com/yehonghu/BookEase-COMP313-Group6-Final/actions/workflows/ci.yml)
+[![Last commit](https://img.shields.io/github/last-commit/yehonghu/BookEase-COMP313-Group6-Final)](https://github.com/yehonghu/BookEase-COMP313-Group6-Final/commits/main)
+[![Live demo](https://img.shields.io/badge/demo-live-brightgreen)](https://bookease-5e97.onrender.com)
+
 BookEase is a portfolio-grade React, Express, and MongoDB application for customers, independent service providers, and administrators. Its public experience is rebuilt as **Neighbourhood in Motion**: a warm editorial service field with a pointer-responsive Three.js orbit, scroll-led product storytelling, original community-service visuals, and readable request-to-booking states.
 
 The visual layer does not replace the product. The application preserves the real marketplace workflow behind the public experience and can run against the included Express and MongoDB backend.
