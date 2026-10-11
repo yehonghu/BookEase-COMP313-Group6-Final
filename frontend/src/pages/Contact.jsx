@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { sendContactMessage } from "../api/contact.api";
 
 const isPublicDemo = import.meta.env.VITE_DEMO_MODE === "true";
@@ -23,6 +24,14 @@ export default function Contact() {
   const [locLoading, setLocLoading] = useState(false);
   const [ok, setOk] = useState("");
   const [err, setErr] = useState("");
+  const reduceMotion = useReducedMotion();
+  const entrance = reduceMotion
+    ? {}
+    : {
+        initial: { opacity: 0, y: 18 },
+        animate: { opacity: 1, y: 0 },
+        transition: { duration: 0.7, ease: [0.2, 0.7, 0.2, 1] },
+      };
 
   const onChange = (e) =>
     setForm((p) => ({ ...p, [e.target.name]: e.target.value }));
@@ -139,20 +148,29 @@ export default function Contact() {
   };
 
   return (
-    <div className="pt-24 px-6 max-w-[1000px] mx-auto">
+    <motion.div {...entrance} className="pt-24 px-6 max-w-[1000px] mx-auto">
       <h1 className="text-4xl font-semibold mb-2">Contact Us</h1>
       <p className="text-apple-gray-500 text-lg mb-8">
         Have questions or feedback? Send us a message and we’ll get back to you.
       </p>
 
-      <div className="glass-card rounded-2xl p-6">
+      <motion.div
+        className="glass-card rounded-2xl p-6"
+        {...(reduceMotion
+          ? {}
+          : {
+              initial: { opacity: 0, y: 14 },
+              animate: { opacity: 1, y: 0 },
+              transition: { duration: 0.7, delay: 0.1, ease: [0.2, 0.7, 0.2, 1] },
+            })}
+      >
         {err && (
-          <div className="mb-4 text-sm text-red-600 bg-red-50 px-4 py-2 rounded-xl">
+          <div role="alert" className="mb-4 text-sm text-red-600 bg-red-50 px-4 py-2 rounded-xl">
             {err}
           </div>
         )}
         {ok && (
-          <div className="mb-4 text-sm text-green-700 bg-green-50 px-4 py-2 rounded-xl">
+          <div aria-live="polite" className="mb-4 text-sm text-green-700 bg-green-50 px-4 py-2 rounded-xl">
             {ok}
           </div>
         )}
@@ -298,7 +316,7 @@ export default function Contact() {
             {loading ? "Sending..." : "Send Message"}
           </button>
         </form>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

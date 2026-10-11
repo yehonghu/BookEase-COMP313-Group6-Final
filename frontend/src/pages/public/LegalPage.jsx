@@ -1,3 +1,4 @@
+import { motion, useReducedMotion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, FileText, MapPin, ShieldCheck } from 'lucide-react';
 
@@ -39,9 +40,19 @@ const copy = {
 
 export default function LegalPage({ type }) {
   const page = copy[type] || copy.terms;
+  const reduceMotion = useReducedMotion();
   return (
     <div className="min-h-[calc(100vh-52px)] bg-[#f8f5ef] px-5 py-14 sm:px-8">
-      <article className="mx-auto max-w-3xl rounded-[2rem] border border-[#e5ddd0] bg-white p-7 shadow-[0_20px_70px_rgba(36,45,59,.08)] sm:p-11">
+      <motion.article
+        className="mx-auto max-w-3xl rounded-[2rem] border border-[#e5ddd0] bg-white p-7 shadow-[0_20px_70px_rgba(36,45,59,.08)] sm:p-11"
+        {...(reduceMotion
+          ? {}
+          : {
+              initial: { opacity: 0, y: 18 },
+              animate: { opacity: 1, y: 0 },
+              transition: { duration: 0.65, ease: [0.2, 0.7, 0.2, 1] },
+            })}
+      >
         <Link to="/" className="mb-10 inline-flex items-center gap-2 text-sm font-semibold text-apple-blue no-underline hover:underline"><ArrowLeft size={16} /> Return home</Link>
         <div className="mb-9 flex gap-4">
           <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#193b75] text-white"><FileText size={21} /></span>
@@ -53,7 +64,7 @@ export default function LegalPage({ type }) {
           {page.sections.map(([heading, body]) => <section key={heading}><h2 className="text-xl font-bold text-[#17233a]">{heading}</h2><p className="mt-3 text-[15px] leading-7 text-[#5b6472]">{body}</p></section>)}
         </div>
         <div className="mt-10 rounded-2xl border border-[#e5ddd0] bg-[#fcfaf6] p-4 text-sm leading-6 text-[#5b6472]">Last updated: August 2026. This public-beta content describes the current product experience and should be reviewed by the owner’s legal advisor before processing payments or broad commercial launch.</div>
-      </article>
+      </motion.article>
     </div>
   );
 }
